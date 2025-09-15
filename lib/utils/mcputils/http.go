@@ -83,7 +83,7 @@ func ReplaceHTTPResponse(ctx context.Context, resp *http.Response, processer Ser
 		resp.Body = &httpSSEResponseReplacer{
 			ctx:               ctx,
 			SSEResponseReader: NewSSEResponseReader(resp.Body),
-			processer:         processer,
+			processor:         processer,
 		}
 		return nil
 	default:
@@ -94,7 +94,7 @@ func ReplaceHTTPResponse(ctx context.Context, resp *http.Response, processer Ser
 type httpSSEResponseReplacer struct {
 	*SSEResponseReader
 	ctx       context.Context
-	processer ServerMessageProcessor
+	processor ServerMessageProcessor
 	buf       []byte
 }
 
@@ -121,9 +121,9 @@ func (r *httpSSEResponseReplacer) Read(p []byte) (int, error) {
 	var respToClient mcp.JSONRPCMessage
 	switch {
 	case base.IsResponse():
-		respToClient = r.processer.ProcessResponse(r.ctx, base.MakeResponse())
+		respToClient = r.processor.ProcessResponse(r.ctx, base.MakeResponse())
 	case base.IsNotification():
-		respToClient = r.processer.ProcessNotification(r.ctx, base.MakeNotification())
+		respToClient = r.processor.ProcessNotification(r.ctx, base.MakeNotification())
 	default:
 		return 0, trace.BadParameter("message is not a response or a notification")
 	}
