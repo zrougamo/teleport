@@ -551,7 +551,7 @@ func MatchKinds(resource ResourceWithLabels, kinds []string) bool {
 		// possible for certain APIs like ListUnifiedResources to use KindMCP as
 		// a kind filter.
 		return resource.GetSubKind() == SubKindMCP && slices.Contains(kinds, KindMCP)
-	case KindSAMLIdPServiceProvider, KindIdentityCenterAccount:
+	case KindIdentityCenterAccount:
 		return slices.Contains(kinds, KindApp)
 	default:
 		return slices.Contains(kinds, resourceKind)

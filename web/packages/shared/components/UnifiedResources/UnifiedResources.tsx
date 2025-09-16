@@ -128,11 +128,13 @@ export type SelectedResource = {
  * ResourceFilterKind are resource kinds that can be used for filtering through
  * ListUnifiedResources API.
  *
- * 'mcp' can be used to filter MCP servers by the backend, even though they are
- * internally just app resources atm.
+ * 'mcp' and 'saml_idp_service_provider' kinds can be used to filter resources
+ * by the backend, even though they are returned by the proxy as app resources
+ * atm.
  */
 export type ResourceFilterKind =
   | SharedUnifiedResource['resource']['kind']
+  | 'saml_idp_service_provider'
   | 'mcp';
 
 export type FilterKind = {
@@ -149,6 +151,7 @@ const filterKindNameMap: Record<ResourceFilterKind, string> = {
   user_group: 'User Groups',
   git_server: 'Git Servers',
   mcp: 'MCP Servers',
+  saml_idp_service_provider: 'SAML Applications',
 };
 
 /*

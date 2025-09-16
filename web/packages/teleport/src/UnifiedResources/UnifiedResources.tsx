@@ -118,6 +118,10 @@ const getAvailableKindsWithAccess = (flags: FeatureFlags): FilterKind[] => {
       kind: 'mcp',
       disabled: !flags.applications,
     },
+    {
+      kind: 'saml_idp_service_provider',
+      disabled: !flags.applications,
+    },
   ];
 };
 
