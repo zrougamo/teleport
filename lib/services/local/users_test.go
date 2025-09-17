@@ -109,7 +109,6 @@ func TestIdentityService_CreateUser(t *testing.T) {
 			}
 		})
 	}
-
 }
 
 func TestRecoveryCodesCRUD(t *testing.T) {
